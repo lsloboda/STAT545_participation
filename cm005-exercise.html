@@ -384,6 +384,14 @@ if (my_commute &gt; 30) {
 ## 4 Canada  Americas   1967    72.1 20819767    16077.</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Find all entries of Canada, and entries of Algeria occuring in the ’60s.</li>
+</ol>
+<pre class="r"><code>gapminder %&gt;% 
+  filter(country == &quot;Canada&quot;,
+          country %in% c(&quot;Algeria&quot;) &amp; year &gt;= 1960, year &lt; 1970)</code></pre>
+<pre><code>## # A tibble: 0 x 6
+## # ... with 6 variables: country &lt;fct&gt;, continent &lt;fct&gt;, year &lt;int&gt;,
+## #   lifeExp &lt;dbl&gt;, pop &lt;int&gt;, gdpPercap &lt;dbl&gt;</code></pre>
+<ol start="3" style="list-style-type: decimal">
 <li>Find all entries <em>not</em> including Canada and Algeria.</li>
 </ol>
 </div>

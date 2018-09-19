@@ -358,6 +358,19 @@ gapminder %>%
 
 
 2. Find all entries of Canada, and entries of Algeria occuring in the '60s. 
+
+```r
+gapminder %>% 
+  filter(country == "Canada",
+          country %in% c("Algeria") & year >= 1960, year < 1970)
+```
+
+```
+## # A tibble: 0 x 6
+## # ... with 6 variables: country <fct>, continent <fct>, year <int>,
+## #   lifeExp <dbl>, pop <int>, gdpPercap <dbl>
+```
+
 3. Find all entries _not_ including Canada and Algeria.
 
 # Bonus Exercises

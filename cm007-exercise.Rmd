@@ -6,7 +6,6 @@ editor_options:
 ---
 
 
-
 # Beyond the x and y aesthetics
 
 Switch focus to exploring aesthetic mappings, instead of geoms. 
@@ -17,8 +16,13 @@ library(tidyverse)
 
 gvsl <- ggplot(gapminder, aes(gdpPercap, lifeExp)) +
            scale_x_log10()
-
 ```
+
+
+
+
+
+
 
 
 ## Shapes

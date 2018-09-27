@@ -136,10 +136,14 @@ Convenience functions:
 n_distinct: How many years of record does each country have?
 
 ```{r}
+gapminder %>%
+  group_by(continent) %>% 
+  tally()
 
+gapminder %>%
+  count(continent)
 ```
 
-count
 
 ## Function types
 
@@ -158,6 +162,13 @@ For any generic output, we can use dplyr's `do()` function -- but that's a topic
 Calculate the growth in population since the first year on record _for each country_. `first()` is useful.
 
 ```{r}
+gapminder %>%
+  group_by(country) %>% 
+  mutate(growth = pop - first(pop))
+
+gapminder %>%
+  group_by(country) %>% 
+  mutate(growth = pop - pop[1])
 
 ```
 
@@ -166,13 +177,21 @@ Notice that `dplyr` has retained the original grouping.
 How about growth compared to `1972`?
 
 ```{r}
-
+gapminder %>%
+  group_by(country) %>% 
+  mutate(growth = pop - pop[year = 1972])
 ```
 
 Make a new variable `pop_last_time`, as the "lag-1" population -- that is, the population from the previous entry of that country. Use the `lag` function.
 
 ```{r}
+gapminder %>%
+  group_by(country) %>% 
+  mutate(change = pop - lag(pop))
 
+gapminder %>%
+  group_by(country) %>% 
+  mutate(change = pop - lead(pop))
 ```
 
 Similar: `lead` function.
@@ -186,7 +205,13 @@ Your turn: Use what we learned to answer the following questions.
 1. Determine the country that experienced the sharpest 5-year drop in life expectancy, in each continent.
 
 ```{r}
-
+gapminder %>%
+  group_by(continent, country) %>% 
+  mutate(gain = lifeExp- lag(lifeExp)) %>% 
+  filter(!is.na(gain)) %>% 
+  summarize(min = min(gain)) %>% 
+  summarize(min = min(min)) %>% 
+  arrange(min)
 ```
 
 2. Compute the relative gdp (NOT per capita!) of each country compared to Canada (= GDP of a country / GDP of Canada).

@@ -441,10 +441,10 @@ union(y,z)
     ## # A tibble: 4 x 2
     ##   x1       x2
     ##   <chr> <int>
-    ## 1 C         3
-    ## 2 A         1
-    ## 3 B         2
-    ## 4 D         4
+    ## 1 D         4
+    ## 2 B         2
+    ## 3 C         3
+    ## 4 A         1
 
 ### example for `setdiff`: Rows that appear in `y` but not `z`. **Caution:** `setdiff` for `y` to `z` and `z` to `y` are different.
 
@@ -644,22 +644,45 @@ weather
     ## # ... with 26,105 more rows, and 5 more variables: wind_gust <dbl>,
     ## #   precip <dbl>, pressure <dbl>, visib <dbl>, time_hour <dttm>
 
+``` r
+#union(flights2, weather)
+bind_rows(flights2, weather)
+```
+
+    ## # A tibble: 27,115 x 17
+    ##     year tailnum carrier time_hour           origin month   day  hour
+    ##    <dbl> <chr>   <chr>   <dttm>              <chr>  <dbl> <int> <int>
+    ##  1 2013. N14228  UA      2013-01-01 05:00:00 <NA>      NA    NA    NA
+    ##  2 2013. N24211  UA      2013-01-01 05:00:00 <NA>      NA    NA    NA
+    ##  3 2013. N619AA  AA      2013-01-01 05:00:00 <NA>      NA    NA    NA
+    ##  4 2013. N804JB  B6      2013-01-01 05:00:00 <NA>      NA    NA    NA
+    ##  5 2013. N668DN  DL      2013-01-01 06:00:00 <NA>      NA    NA    NA
+    ##  6 2013. N39463  UA      2013-01-01 05:00:00 <NA>      NA    NA    NA
+    ##  7 2013. N516JB  B6      2013-01-01 06:00:00 <NA>      NA    NA    NA
+    ##  8 2013. N829AS  EV      2013-01-01 06:00:00 <NA>      NA    NA    NA
+    ##  9 2013. N593JB  B6      2013-01-01 06:00:00 <NA>      NA    NA    NA
+    ## 10 2013. N3ALAA  AA      2013-01-01 06:00:00 <NA>      NA    NA    NA
+    ## # ... with 27,105 more rows, and 9 more variables: temp <dbl>, dewp <dbl>,
+    ## #   humid <dbl>, wind_dir <dbl>, wind_speed <dbl>, wind_gust <dbl>,
+    ## #   precip <dbl>, pressure <dbl>, visib <dbl>
+
 ### 3. Let's create a tibble `p` with "x1" and "x2" coulmns and have duplicated element in "x1" column. Create another tibble `q` with "x1" and "x3" columns. Then apply `left_join` function `p` to `q` and `q` to `p`.
 
 ``` r
-p <- tibble(x1 = LETTERS[c(1,3,5)], x2 = c("T", "F", "T"))
-q <- tibble(x1 = LETTERS[c(1,2,4)], x3 = 1:3)
+p <- tibble(x1 = LETTERS[c(1,3,3,5)], x2 = c("T", "F", "T", "F"))
+q <- tibble(x1 = LETTERS[c(1,2,4,6)], x3 = 1:4)
 left_join(p,q)
 ```
 
     ## Joining, by = "x1"
 
-    ## # A tibble: 3 x 3
+    ## # A tibble: 4 x 3
     ##   x1    x2       x3
     ##   <chr> <chr> <int>
     ## 1 A     T         1
     ## 2 C     F        NA
-    ## 3 E     T        NA
+    ## 3 C     T        NA
+    ## 4 E     F        NA
 
 ``` r
 left_join(q,p)
@@ -667,9 +690,10 @@ left_join(q,p)
 
     ## Joining, by = "x1"
 
-    ## # A tibble: 3 x 3
+    ## # A tibble: 4 x 3
     ##   x1       x3 x2   
     ##   <chr> <int> <chr>
     ## 1 A         1 T    
     ## 2 B         2 <NA> 
-    ## 3 D         3 <NA>
+    ## 3 D         3 <NA> 
+    ## 4 F         4 <NA>

@@ -120,6 +120,11 @@ left_join(flights2, weather, by = c("year", "time_hour"))
 
 ### 5. Add `weather` information to the `flights2` dataset by matching only "time_hour" variable
 
+```{r}
+flights2 %>% 
+  left_join(weather, by = c("time_hour"))
+#inner_join(flights2, weather, by= c("time_hour"))
+```
 
 
 ## Types of filtering join
@@ -129,14 +134,25 @@ left_join(flights2, weather, by = c("year", "time_hour"))
 
 ### example for `semi_join`: All rows in `a` that have a match in `b`
 
-
-
+```{r}
+semi_join(a,b)
+inner_join(a,b)
+a
+b
+```
 ### example for `anti_join`: All rows in `a` that do not have a match in `b`
 
-
+```{r}
+anti_join(a,b)
+```
 
 ### example of joinin by matching two variables (e.g., "x1", "x2") from both datasets `a` and `c`
 
+```{r}
+a
+c
+semi_join(a,c)
+```
 
 
 ## Types of Set Operations for two datasets

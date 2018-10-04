@@ -1,0 +1,35 @@
+---
+title: "Data Frame Exploration"
+output:
+  html_document:
+      theme: cerulean #change the theme with YAML
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+Here is an equation:
+
+$$\alpha = 2 +2$$
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars, echo=FALSE, fig.width=3, fig.height=4} #echo doesn't show the source code, just the output
+summary(cars)
+```
+#Difference between R Markdown and Notebook --> Markdown/Knit is executing the file from top to bottom; Notebook/Preview is just rendering HTML (not recommended)
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

@@ -422,11 +422,51 @@ Types of Set Operations for two datasets
 
 ### example for `intersect`: Rows that appear in both `y` and `z`
 
+``` r
+intersect(y,z)
+```
+
+    ## # A tibble: 2 x 2
+    ##   x1       x2
+    ##   <chr> <int>
+    ## 1 B         2
+    ## 2 C         3
+
 ### example for `union`: Rows that appear in either or both `y` and `z`
+
+``` r
+union(y,z)
+```
+
+    ## # A tibble: 4 x 2
+    ##   x1       x2
+    ##   <chr> <int>
+    ## 1 C         3
+    ## 2 A         1
+    ## 3 D         4
+    ## 4 B         2
 
 ### example for `setdiff`: Rows that appear in `y` but not `z`. **Caution:** `setdiff` for `y` to `z` and `z` to `y` are different.
 
-### what happen if colnames are differentin `y` and `x`? Is there any error message and why?
+``` r
+setdiff(y,z)
+```
+
+    ## # A tibble: 1 x 2
+    ##   x1       x2
+    ##   <chr> <int>
+    ## 1 A         1
+
+``` r
+setdiff(z,y)
+```
+
+    ## # A tibble: 1 x 2
+    ##   x1       x2
+    ##   <chr> <int>
+    ## 1 D         4
+
+### what happen if colnames are different in `y` and `x`? Is there any error message and why? \#need to have identical columns
 
 ``` r
 (x <- tibble(x1 = c("B", "C", "D"), x3 = 2:4))
@@ -438,6 +478,10 @@ Types of Set Operations for two datasets
     ## 1 B         2
     ## 2 C         3
     ## 3 D         4
+
+``` r
+#intersect(y,x)
+```
 
 Types of binding datasets
 -------------------------

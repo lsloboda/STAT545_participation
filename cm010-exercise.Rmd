@@ -168,20 +168,32 @@ semi_join(a,c)
 
 ### example for `intersect`: Rows that appear in both `y` and `z`
 
+```{r}
+intersect(y,z)
+```
 
 
 ### example for `union`: Rows that appear in either or both `y` and `z`
 
+```{r}
+union(y,z)
+```
 
 
 ### example for `setdiff`: Rows that appear in `y` but not `z`. __Caution:__ `setdiff` for `y` to `z` and `z` to `y` are different.
 
+```{r}
+setdiff(y,z)
+setdiff(z,y)
+```
 
 
-### what happen if colnames are differentin `y` and `x`? Is there any error message and why?
+### what happen if colnames are different in `y` and `x`? Is there any error message and why? #need to have identical columns
 
 ```{r}
 (x <- tibble(x1 = c("B", "C", "D"), x3 = 2:4))
+
+#intersect(y,x)
 
 ```
 
@@ -191,12 +203,21 @@ semi_join(a,c)
 
 ### example for `bind_rows`: Append `z` to `y` as new rows
 
+```{r}
+
+```
 
 
 ### example for `bind_cols`: Append `z` to `y` as new columns. __Caution__: matches rows by position. Check colnames after binding.
+```{r}
+
+```
 
 
 ### what happen if colnames are different between `y` and `x` datasets?
+```{r}
+
+```
 
 
 ##Practice Exercises

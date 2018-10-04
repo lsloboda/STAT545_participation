@@ -238,7 +238,7 @@ yvsl <- ggplot(gapminder, aes(year, lifeExp))
 
 yvsl + geom_point(aes(colour = continent))
 
-yvsl + geom_smooth(method='lm', aes(color=continent), se=FALSE)
+#yvsl + geom_smooth(method='lm', aes(color=continent), se=FALSE)
 
 ```
 

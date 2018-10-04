@@ -522,6 +522,54 @@ gapminder %>%
 
 1.  Compute the relative gdp (NOT per capita!) of each country compared to Canada (= GDP of a country / GDP of Canada).
 
+``` r
+cda <- gapminder %>%
+  group_by(continent, country) %>% 
+  mutate(gdp = gdpPercap * pop) %>% 
+  filter(country == "Canada") %>% 
+  `[[`("gdp")
+
+my_df <- gapminder %>%
+  mutate(cda_gdp = rep(cda, nlevels(country)),
+  gdp = gdpPercap * pop,
+  rel_gdp = gdp/cda_gdp)
+
+my_df %>% filter(country == "Canada")
+```
+
+    ## # A tibble: 12 x 9
+    ##    country continent  year lifeExp      pop gdpPercap cda_gdp     gdp
+    ##    <fct>   <fct>     <int>   <dbl>    <int>     <dbl>   <dbl>   <dbl>
+    ##  1 Canada  Americas   1952    68.8 14785584    11367. 1.68e11 1.68e11
+    ##  2 Canada  Americas   1957    70.0 17010154    12490. 2.12e11 2.12e11
+    ##  3 Canada  Americas   1962    71.3 18985849    13462. 2.56e11 2.56e11
+    ##  4 Canada  Americas   1967    72.1 20819767    16077. 3.35e11 3.35e11
+    ##  5 Canada  Americas   1972    72.9 22284500    18971. 4.23e11 4.23e11
+    ##  6 Canada  Americas   1977    74.2 23796400    22091. 5.26e11 5.26e11
+    ##  7 Canada  Americas   1982    75.8 25201900    22899. 5.77e11 5.77e11
+    ##  8 Canada  Americas   1987    76.9 26549700    26627. 7.07e11 7.07e11
+    ##  9 Canada  Americas   1992    78.0 28523502    26343. 7.51e11 7.51e11
+    ## 10 Canada  Americas   1997    78.6 30305843    28955. 8.78e11 8.78e11
+    ## 11 Canada  Americas   2002    79.8 31902268    33329. 1.06e12 1.06e12
+    ## 12 Canada  Americas   2007    80.7 33390141    36319. 1.21e12 1.21e12
+    ## # ... with 1 more variable: rel_gdp <dbl>
+
+``` r
+summary(my_df$rel_gdp)
+```
+
+    ##      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+    ##  0.000217  0.011948  0.041706  0.309287  0.197899 13.115017
+
+``` r
+#rep repeats a vector in a certain way
+
+#cad_gdp <- gapminder %>%
+  #mutate(gdp = gdpPercap * pop) %>% 
+ # filter(country == "Canada") %>% 
+  #select(gdp)
+```
+
 Sanity check: are Canada's numbers = 1? What is the spread of numbers like (should be small)?
 
 Summary of major one-table functions

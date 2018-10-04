@@ -443,8 +443,8 @@ union(y,z)
     ##   <chr> <int>
     ## 1 C         3
     ## 2 A         1
-    ## 3 D         4
-    ## 4 B         2
+    ## 3 B         2
+    ## 4 D         4
 
 ### example for `setdiff`: Rows that appear in `y` but not `z`. **Caution:** `setdiff` for `y` to `z` and `z` to `y` are different.
 
@@ -490,9 +490,78 @@ Types of binding datasets
 
 ### example for `bind_rows`: Append `z` to `y` as new rows
 
+``` r
+bind_rows(y,z)
+```
+
+    ## # A tibble: 6 x 2
+    ##   x1       x2
+    ##   <chr> <int>
+    ## 1 A         1
+    ## 2 B         2
+    ## 3 C         3
+    ## 4 B         2
+    ## 5 C         3
+    ## 6 D         4
+
+``` r
+y
+```
+
+    ## # A tibble: 3 x 2
+    ##   x1       x2
+    ##   <chr> <int>
+    ## 1 A         1
+    ## 2 B         2
+    ## 3 C         3
+
+``` r
+z
+```
+
+    ## # A tibble: 3 x 2
+    ##   x1       x2
+    ##   <chr> <int>
+    ## 1 B         2
+    ## 2 C         3
+    ## 3 D         4
+
 ### example for `bind_cols`: Append `z` to `y` as new columns. **Caution**: matches rows by position. Check colnames after binding.
 
-### what happen if colnames are different between `y` and `x` datasets?
+``` r
+bind_cols(y,z)
+```
+
+    ## # A tibble: 3 x 4
+    ##   x1       x2 x11     x21
+    ##   <chr> <int> <chr> <int>
+    ## 1 A         1 B         2
+    ## 2 B         2 C         3
+    ## 3 C         3 D         4
+
+``` r
+z
+```
+
+    ## # A tibble: 3 x 2
+    ##   x1       x2
+    ##   <chr> <int>
+    ## 1 B         2
+    ## 2 C         3
+    ## 3 D         4
+
+### what happen if colnames are different between `y` and `x` datasets? \#doesn't matter, just taks them together
+
+``` r
+bind_cols(y,x)
+```
+
+    ## # A tibble: 3 x 4
+    ##   x1       x2 x11      x3
+    ##   <chr> <int> <chr> <int>
+    ## 1 A         1 B         2
+    ## 2 B         2 C         3
+    ## 3 C         3 D         4
 
 Practice Exercises
 ------------------
@@ -501,6 +570,106 @@ Practice these concepts in the following exercises. It might help you to first i
 
 ### 1. Filter the rows of `flights2` by matching "year" and "time\_hour" variables to `weather` dataset. Use both `semi_join()` and `anti_join()`
 
+``` r
+#flights2
+#weather
+semi_join(flights2, weather)
+```
+
+    ## Joining, by = c("year", "time_hour")
+
+    ## # A tibble: 1,000 x 4
+    ##     year tailnum carrier time_hour          
+    ##    <int> <chr>   <chr>   <dttm>             
+    ##  1  2013 N14228  UA      2013-01-01 05:00:00
+    ##  2  2013 N24211  UA      2013-01-01 05:00:00
+    ##  3  2013 N619AA  AA      2013-01-01 05:00:00
+    ##  4  2013 N804JB  B6      2013-01-01 05:00:00
+    ##  5  2013 N668DN  DL      2013-01-01 06:00:00
+    ##  6  2013 N39463  UA      2013-01-01 05:00:00
+    ##  7  2013 N516JB  B6      2013-01-01 06:00:00
+    ##  8  2013 N829AS  EV      2013-01-01 06:00:00
+    ##  9  2013 N593JB  B6      2013-01-01 06:00:00
+    ## 10  2013 N3ALAA  AA      2013-01-01 06:00:00
+    ## # ... with 990 more rows
+
+``` r
+anti_join(flights2, weather)
+```
+
+    ## Joining, by = c("year", "time_hour")
+
+    ## # A tibble: 0 x 4
+    ## # ... with 4 variables: year <int>, tailnum <chr>, carrier <chr>,
+    ## #   time_hour <dttm>
+
 ### 2. Can we apply `set` and `binding` funcions between `flights2` and `weather` datasets. Why and why not?
 
+``` r
+flights2
+```
+
+    ## # A tibble: 1,000 x 4
+    ##     year tailnum carrier time_hour          
+    ##    <int> <chr>   <chr>   <dttm>             
+    ##  1  2013 N14228  UA      2013-01-01 05:00:00
+    ##  2  2013 N24211  UA      2013-01-01 05:00:00
+    ##  3  2013 N619AA  AA      2013-01-01 05:00:00
+    ##  4  2013 N804JB  B6      2013-01-01 05:00:00
+    ##  5  2013 N668DN  DL      2013-01-01 06:00:00
+    ##  6  2013 N39463  UA      2013-01-01 05:00:00
+    ##  7  2013 N516JB  B6      2013-01-01 06:00:00
+    ##  8  2013 N829AS  EV      2013-01-01 06:00:00
+    ##  9  2013 N593JB  B6      2013-01-01 06:00:00
+    ## 10  2013 N3ALAA  AA      2013-01-01 06:00:00
+    ## # ... with 990 more rows
+
+``` r
+weather
+```
+
+    ## # A tibble: 26,115 x 15
+    ##    origin  year month   day  hour  temp  dewp humid wind_dir wind_speed
+    ##    <chr>  <dbl> <dbl> <int> <int> <dbl> <dbl> <dbl>    <dbl>      <dbl>
+    ##  1 EWR    2013.    1.     1     1  39.0  26.1  59.4     270.      10.4 
+    ##  2 EWR    2013.    1.     1     2  39.0  27.0  61.6     250.       8.06
+    ##  3 EWR    2013.    1.     1     3  39.0  28.0  64.4     240.      11.5 
+    ##  4 EWR    2013.    1.     1     4  39.9  28.0  62.2     250.      12.7 
+    ##  5 EWR    2013.    1.     1     5  39.0  28.0  64.4     260.      12.7 
+    ##  6 EWR    2013.    1.     1     6  37.9  28.0  67.2     240.      11.5 
+    ##  7 EWR    2013.    1.     1     7  39.0  28.0  64.4     240.      15.0 
+    ##  8 EWR    2013.    1.     1     8  39.9  28.0  62.2     250.      10.4 
+    ##  9 EWR    2013.    1.     1     9  39.9  28.0  62.2     260.      15.0 
+    ## 10 EWR    2013.    1.     1    10  41.0  28.0  59.6     260.      13.8 
+    ## # ... with 26,105 more rows, and 5 more variables: wind_gust <dbl>,
+    ## #   precip <dbl>, pressure <dbl>, visib <dbl>, time_hour <dttm>
+
 ### 3. Let's create a tibble `p` with "x1" and "x2" coulmns and have duplicated element in "x1" column. Create another tibble `q` with "x1" and "x3" columns. Then apply `left_join` function `p` to `q` and `q` to `p`.
+
+``` r
+p <- tibble(x1 = LETTERS[c(1,3,5)], x2 = c("T", "F", "T"))
+q <- tibble(x1 = LETTERS[c(1,2,4)], x3 = 1:3)
+left_join(p,q)
+```
+
+    ## Joining, by = "x1"
+
+    ## # A tibble: 3 x 3
+    ##   x1    x2       x3
+    ##   <chr> <chr> <int>
+    ## 1 A     T         1
+    ## 2 C     F        NA
+    ## 3 E     T        NA
+
+``` r
+left_join(q,p)
+```
+
+    ## Joining, by = "x1"
+
+    ## # A tibble: 3 x 3
+    ##   x1       x3 x2   
+    ##   <chr> <int> <chr>
+    ## 1 A         1 T    
+    ## 2 B         2 <NA> 
+    ## 3 D         3 <NA>

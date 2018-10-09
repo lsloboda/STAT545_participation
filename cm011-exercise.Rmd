@@ -232,16 +232,19 @@ Lists can hold pretty much anything, and can also be named. Let's use the follow
 ```
 
 
-Subsetting a list works similarly to vectors. Try subsetting the first element of `my_list`; try subsettig the first _component_ of the list. Notice the difference!
+Subsetting a list works similarly to vectors. Try subsetting the first element of `my_list`; try subsetting the first _component_ of the list. Notice the difference!
 
 ```{r}
-
+my_list[2]
+my_list[[2]] #don't give me the first entry in the list, give me the contents of the first entry
 ```
 
 Try also subsetting by name:
 
 ```{r}
-
+my_list["year"]
+my_list[["year"]] #similarly, it returns the contents
+my_list$year #more commonly used
 ```
 
 Smells a little like `data.frame`s. It turns out a `data.frame` is a special type of list:
@@ -255,7 +258,7 @@ is.list(small_df)
 ```
 
 ```{r}
-as.list(small_df)
+as.list(small_df) #coerces to a list
 ```
 
 Note that there's a difference between a list of one object, and that object itself! This is different from vectors.

@@ -264,7 +264,7 @@ as.list(small_df) #coerces to a list
 Note that there's a difference between a list of one object, and that object itself! This is different from vectors.
 
 ```{r}
-identical(list(4), 4)
+identical(list(4), 4) #vectors don't have extra baggage, lists do
 identical(c(4), 4)
 ```
 

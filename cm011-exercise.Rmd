@@ -201,7 +201,8 @@ course
 Subset the entry labelled "section" and "subject". 
 
 ```{r}
-
+course[c("section", "subject")]
+course[["section"]]
 ```
 
 Amazingly, we can also subset by a vector of logicals (which will be recycled!). Let's work with our integer sequence vector again:
@@ -209,6 +210,7 @@ Amazingly, we can also subset by a vector of logicals (which will be recycled!).
 ```{r}
 (a <- 7:-2)
 (n <- length(a))
+a[a > 0 & a != 4]
 ```
 
 ## Lists
@@ -218,8 +220,7 @@ Unlike vectors, which are atomic/homogeneous, a list in R is heterogeneous.
 Try storing the course code (`"STAT"` and `545`) again, but this time in a list. Use the `list()` function.
 
 ```{r}
-course[c("section", "subject")]
-course[["section"]]
+(course <- list("STAT", 545))
 
 ```
 

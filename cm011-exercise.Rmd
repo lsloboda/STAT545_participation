@@ -148,6 +148,7 @@ a > 0 & a < 5
 Now try a boolean operator. Note that && and || are NOT vectorized!
 
 ```{r}
+a > 0 && a < 5 #not vectorized, useful for if statements
 
 ```
 
@@ -155,7 +156,8 @@ Now try a boolean operator. Note that && and || are NOT vectorized!
 Recycling works with assignment, too. Replace the entire vector a with 1:2 repeated:
 
 ```{r}
-
+a[1:n] <- 1:2
+a
 ```
 
 
@@ -175,20 +177,24 @@ Let's give the components some names ("subject", "code", and "section") using th
 - Notice that the vector does not change!!
 
 ```{r}
-
+setNames(course, c("subject", "code", "section"))
+course
 ```
 
 
 2. Using the names function with `<-`. Also, just explore the names function.
 
 ```{r}
-
+names(course) <- c("subject", "code", "section") #c function is for constructing vectors
+course
+#names(course)
 ```
 
 3. Re-constructing the vector, specifying names within `c()`.
 
 ```{r}
-
+course <- c(subject = "STAT", code = "545A", section =  "S01")
+course
 ```
 
 
@@ -212,6 +218,8 @@ Unlike vectors, which are atomic/homogeneous, a list in R is heterogeneous.
 Try storing the course code (`"STAT"` and `545`) again, but this time in a list. Use the `list()` function.
 
 ```{r}
+course[c("section", "subject")]
+course[["section"]]
 
 ```
 

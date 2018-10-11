@@ -79,8 +79,9 @@ Convert `draw` to a factor. What are the levels? How many are there? How many of
 draw <- factor(draw)
 draw
 levels(draw)
+levels(draw) %>% is.factor()
 nlevels(draw)
-fct_count(draw) #from the forecast package; gives us the observations and the count of each
+fct_count(draw) #from the forcats package; gives us the observations and the count of each
 ```
 
 
@@ -90,6 +91,8 @@ We saw that `c()` doesn't work for concatenating. Modify the following code to u
 
 ```{r}
 c(lotr1$Film, lotr2$Film)
+
+fct_c(lotr1$Film, lotr2$Film) #auto-added both levels together
 ```
 
 Try binding by row `lotr1` and `lotr2`:
@@ -100,7 +103,11 @@ Try binding by row `lotr1` and `lotr2`:
 Which one is more lenient? Which would you prefer?
 
 ```{r}
+rbind(lotr1, lotr2) %>% str() #assumes you want to add a column; more forgiving
+#bind_rows(lotr1, lotr2) %>% str() #does not make any assumptions
 
+#coercing, basically same as converting (some small diference)
+as.character(5)
 ```
 
 
@@ -111,6 +118,8 @@ Levels don't always have to be present ("observed") in the factor. Example of wh
 ```{r}
 gap_gs <- gapminder %>% filter(country %in% c("Germany", "Sweden"))
 nlevels(gap_gs$country)
+levels(gap_gs$country)
+as.character(gap_gs$country)
 ```
 
 
@@ -127,8 +136,10 @@ gap_small <- gapminder %>%
 
 Exercise: Make a bar chart of the number of times a continent has a country with population < 250,000 in the `gapminder` data set. Try with and without `scale_x_discrete(drop=FALSE)`.
 
-```{r}
-
+```{r, fig.width=3, fig.height=1.5}
+ggplot(gap_small, aes(continent))+
+  geom_bar()+
+  scale_x_discrete(drop=FALSE) #keep factor levels that don't have entries
 ```
 
 __Example of when it's bad__: If you ever use the `levels()` function.
@@ -145,7 +156,13 @@ Exercise: get rid of the unused factor levels for country and continent in diffe
 - Re-defining the variable as a factor
 
 ```{r}
+gap_small %>% 
+  droplevels() %>% 
+  str()
 
+gap_small %>% 
+  mutate(continent = fct_drop(continent)) %>%  #usually fct functions apply to factor itself, not the data frame
+  str() #continent now only has the 3 levels presentin the data frame
 ```
 
 
@@ -160,8 +177,8 @@ levels(cont)
 
 Plotting happens in the order of the factor levels:
 
-```{r, fig.width=2, fig.height=1}
-qplot(cont)
+```{r, fig.width=4, fig.height=2}
+qplot(cont) #automatically makes a bar chart
 ```
 
 Much more effective to always consider a meaningful order when plotting a categorical variable. We'll look at three ways to re-order a factor. 
@@ -173,10 +190,17 @@ Reorder by frequency:
 - Rearrange by frequency: `fct_infreq()`.
 - Reverse: `fct_rev()` 
 
-```{r, fig.width=2, fig.height=1}
+```{r}
 cont %>% 
   fct_infreq() %>% 
   qplot()
+
+cont %>% 
+    fct_infreq() %>% 
+  fct_rev() %>% 
+  qplot()
+
+draw %>% fct_inorder()
 ```
 
 Could also arrange by the order they appear in the factor with `fct_inorder()`.
@@ -193,13 +217,16 @@ ggplot(gap_asia_2007, aes(lifeExp, country)) + geom_point()
 
 Let's use `fct_reorder()` to reorder the countries of `gap_asia_2007` by life Expectancy, and produce the same plot:
 
-```{r, fig.width=2, fig.height=1}
+```{r}
+gap_asia_2007 %>% 
+  mutate(country = fct_reorder(country, lifeExp)) %>% 
+ggplot(aes(lifeExp, country)) + geom_point()
 
 ```
 
 What about when life Expectancy is not unique? Example: life expectancy of each continent:
 
-```{r, fig.width=2, fig.height=1}
+```{r}
 ggplot(gapminder, aes(continent, lifeExp)) +
   geom_violin()
 ggplot(gapminder, aes(continent, lifeExp)) +
@@ -210,8 +237,16 @@ ggplot(gapminder, aes(continent, lifeExp)) +
 
 Exercise: Try making the above box plot and violin plots, ordered by median lifeExp. Try other functions to order by by modifying the `.fun` argument.
 
-```{r, fig.width=2, fig.height=1}
+```{r}
+gapminder %>% 
+  mutate(continent = fct_reorder(continent, lifeExp)) %>% #reoder is similar to a group_by and summarize
+ggplot(aes(continent, lifeExp)) +
+  geom_violin()
 
+gapminder %>% 
+  mutate(continent = fct_reorder(continent, lifeExp)) %>% 
+ggplot(aes(continent, lifeExp)) +
+  geom_boxplot()
 ```
 
 

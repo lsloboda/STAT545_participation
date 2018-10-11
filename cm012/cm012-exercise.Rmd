@@ -62,8 +62,8 @@ as.character(iris$Species) #now we see the character
 
 - Base R way of interacting with factors:
     - `factor()`, or `forcats::parse_factor()`.
-    - `levels()`
-    - `nlevels()`
+    - `levels()`#what are the levels
+    - `nlevels()`#how many levels
     - `forcats::fct_count()`
 
 Here is a sample of 10 letters drawn from the possibilities "a", "b", and "c":
@@ -76,7 +76,11 @@ set.seed(10)
 Convert `draw` to a factor. What are the levels? How many are there? How many of each category was drawn?
 
 ```{r}
-
+draw <- factor(draw)
+draw
+levels(draw)
+nlevels(draw)
+fct_count(draw) #from the forecast package; gives us the observations and the count of each
 ```
 
 

@@ -322,7 +322,7 @@ gap_2007 <- gapminder %>%
 
 We can arbitrarily combine levels using `fct_collapse()`. For example, combine Europe and Asia into one factor called "combo":
 
-```{r, fig.width=2, fig.height=1}
+```{r}
 cont %>% 
   fct_collapse("combo" = c("Europe", "Asia")) %>% 
   qplot()
@@ -335,8 +335,14 @@ More practically, we can lump the least frequent levels together as "Other". Mod
 - You let `fct_lump()` decide on the number of non-other continents. How is this chosen?
 - Note: you can manually specify non-other levels using `fct_other()`.
 
-```{r, fig.width=2, fig.height=1}
+```{r}
+cont %>% 
+  fct_lump() %>% #default: ensures that the other category is the smallest (while combining as many as possible into it)
+  qplot()
 
+cont %>% 
+  fct_lump(n=2) %>%  #keep the top 2, lump everything else together into one
+  qplot()
 ```
 
 We can use the `w` argument to lump by another variable.
@@ -346,7 +352,7 @@ Exercise: Modify the following violin plot of life expectancies of African count
 1. There are 4 "violins" corresponding to countries with the highest lifeExp.
 2. There are 4 "violins" corresponding to countries with the highest gdpPercap
 
-```{r, fig.width=2, fig.height=1}
+```{r}
 gap_africa <- gapminder %>% 
     filter(continent == "Africa")
 gap_africa %>% 
@@ -363,6 +369,7 @@ Use the `gss_cat` data to answer the following questions (from http://r4ds.had.c
 1. (15.3.1 Ex. 1) Explore the distribution of rincome (reported income). What makes the default bar chart hard to understand? How could you improve the plot?
 
 ```{r}
+
 
 ```
 
@@ -394,7 +401,8 @@ Goal here: some exposure to `lubridate`; know it exists.
 1. Use different combinations of y, m, d to make a date time object.
 
 ```{r}
-
+lubridate::ymd(170511)
+lubridate::ymd("2017-May-11")
 ```
 
 2. Get `year`, `month`, `yday`, `wday`, `day`.

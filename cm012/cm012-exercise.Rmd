@@ -47,12 +47,16 @@ str(lotr2)
 Examples of problems encountered with factors. (ideas came from [R Bloggers](https://www.r-bloggers.com/factors-are-not-first-class-citizens-in-r/))
 
 ```{r}
+head(iris)
 iris %>% 
-  mutate(Species = ifelse(Species == "versicolor", "vers", Species))
+  mutate(Species = ifelse(Species == "versicolor", "vers", Species)) %>% 
+  str() #see structure; R is showing us the number underneath the string
 ```
 
 ```{r}
-c(iris$Species, "setosa")
+c(iris$Species, "setosa") #only shows the character part of the vector at the end!
+#takeaway: if you get odd results and you think you have a character, check the type (it may be a factor); R tends to automatically coerce characters into factors (ggplot2 does this, for example)
+as.character(iris$Species) #now we see the character
 ```
 
 

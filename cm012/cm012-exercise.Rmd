@@ -268,8 +268,11 @@ Use `fct_reorder2(f, x, y)` to reorder factor `f`:
 
 Exercise: Reorder the above line graph so that the legend is in order of last life expectancy. Useful for black-and-white printing!
 
-```{r, fig.width=2, fig.height=1}
-
+```{r}
+gap_select %>% 
+  mutate(country = fct_reorder2(country, year, lifeExp)) %>% 
+ggplot(aes(year, lifeExp)) +
+  geom_line(aes(group=country, colour=country))
 ```
 
 ### Ordering "because I said so"
@@ -283,7 +286,12 @@ Here's how to use `fct_relevel()` to do that. Exercise: modify the code so that:
 
 ```{r}
 gap_asia_2007$country %>% 
-  fct_relevel("Syria") %>% 
+  fct_relevel("Syria") %>% #make it first
+  levels() %>% 
+  head()
+
+gap_asia_2007$country %>% 
+  fct_relevel("Syria", "Sweden", after=2) %>% #make it second, then add Sweden
   levels() %>% 
   head()
 ```

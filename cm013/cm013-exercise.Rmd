@@ -50,9 +50,11 @@ p_scales +
     scale_x_log10() +
     scale_colour_continuous(
         trans  = "log10", 
-        breaks = FILL_IN_BREAKS
+        breaks = 10^(1:10)
     ) +
-    FILL_IN_SCALE_FUNCTION(breaks=FILL_IN_BREAKS)
+    scale_y_continuous(breaks=1:10 * 10) #vector of 1 to 10, multiplied by 10 
+#indicates what number we'd like to put tick marks for; if you're out of range, default is to exclude those tick marks
+#continuous does not transform the axis at all
 ```
 
 2. Specify `scales::*_format` in the `labels` argument of a scale function to do the following:
@@ -62,11 +64,11 @@ p_scales +
 ```{r}
 library(scales)
 p_scales +
-    scale_x_log10(labels=FILL_THIS_IN) +
+    scale_x_log10(labels=dollar_format()) +
     scale_colour_continuous(
         trans  = "log10", 
         breaks = 10^(1:10),
-        labels = FILL_THIS_IN
+        labels = comma_format()
     ) +
     scale_y_continuous(breaks=10*(1:10))
 ```

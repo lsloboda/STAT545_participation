@@ -227,5 +227,8 @@ Why do we make plots? EDA (exploratory data analysis); drawing conclusions from 
 - effectiveness; what information is contained in the data? -> starting point
 - see jenny's animated gif for simplfying data -> does it facilitate comparisons or help you see trends better?
 - see Tamara Munsener's book for psychology of colour effects on perception
+- don't use pie charts! can be difficult to compare categories (hard to perceive angular distances vs linear, as in a bar plot)
+- when you look at your plot, ask yourself what trends can you see; what is hidden; how can you reveal it?
+- impossible to make a perfect plot (this is why we have figure captions)
 
 

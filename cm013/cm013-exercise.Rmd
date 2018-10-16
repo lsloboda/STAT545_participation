@@ -168,7 +168,11 @@ Consider the following plot:
 1. Convert it to a `plotly` object by applying the `ggplotly()` function:
 
 ```{r}
-FILL_THIS_IN
+#you can make a ggplot object and convert it to plotly (dont need to know plotly syntax)
+#install.packages("plotly")
+
+library(plotly)
+ggplotly(p)
 ```
 
 2. You can save a plotly graph locally as an html file. Try saving the above:
@@ -186,7 +190,7 @@ p %>%
 ```{r}
 p %>% 
     ggplotly() %>% 
-    plotly_json()
+    plotly_json() #plot is just plain text
 ```
 
 
@@ -195,7 +199,7 @@ p %>%
 
 ```{r}
 plot_ly(gapminder, 
-        x = ~gdpPercap, 
+        x = ~gdpPercap, #tilda means make a formula with this variable as your formula
         y = ~lifeExp, 
         type = "scatter",
         mode = "markers",
@@ -209,11 +213,19 @@ plot_ly(gapminder,
 plot_ly(gapminder, 
         x = ~gdpPercap, 
         y = ~lifeExp, 
-        z = FILL_THIS_IN,
+        z = ~pop,
         type = "scatter3d",
         mode = "markers",
         opacity = 0.2)
 ```
 
+#can use gg animate function to animate plots
+
+Why do we make plots? EDA (exploratory data analysis); drawing conclusions from plots -> endpoint
+- we've looked at tooling with plots -> intermediate
+- grammar and theme are the two aspects that we make decisions about when producing a plot -> intermediate
+- effectiveness; what information is contained in the data? -> starting point
+- see jenny's animated gif for simplfying data -> does it facilitate comparisons or help you see trends better?
+- see Tamara Munsener's book for psychology of colour effects on perception
 
 

@@ -100,11 +100,10 @@ p_scales +
 ```{r}
 p_scales +
     scale_x_log10(labels=dollar_format()) +
-    FILL_IN_WITH_RCOLORBREWER(
+    scale_colour_viridis_c(
         trans   = "log10",
         breaks  = 10^(1:10),
-        labels  = comma_format(),
-        palette = FILL_THIS_IN
+        labels  = comma_format()
     ) +
     scale_y_continuous(breaks=10*(1:10))
 ```
@@ -123,7 +122,8 @@ ggplot(iris, aes(Sepal.Width, Sepal.Length)) +
      geom_point() +
      labs(x = "Sepal Width",
           y = "Sepal Length",
-          title = "Sepal sizes of three plant species")
+          title = "Sepal sizes of three plant species") +
+    theme_bw() #many possibilities (see tab over)
 ```
 
 2. Then, change font size of axis labels, and the strip background colour. Others?
@@ -136,8 +136,11 @@ ggplot(iris, aes(Sepal.Width, Sepal.Length)) +
           y = "Sepal Length",
           title = "Sepal sizes of three plant species") +
     theme_bw() +
-    theme(FILL_IN_ARG_FOR_AXIS_TITLE = FILL_THIS_IN,
-          strip.background = FILL_THIS_IN)
+    theme(axis.text = element_text(size = 16),
+          strip.background = element_rect(fill = "orange"),
+          panel.background = element_rect(fill = "blue"))
+
+#note: theme elements are not part of the grammer (plot elements are not fundamentally changed)
 ```
 
 

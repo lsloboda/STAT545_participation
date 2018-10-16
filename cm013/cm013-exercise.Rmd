@@ -75,17 +75,20 @@ p_scales +
 
 3. Use `RColorBrewer` to change the colour scheme.
     - Notice the three different types of scales: sequential, diverging, and continuous.
+    For discrete or categorical variables, use very different colours. -> continuous
+    For a sequence of variables, use a gradient of colours. -> sequential
+    For a middle neutral value with a scale of gradients moving away in each direction (i.e. temperature scale to hot and cold), -> diverging
 
 ```{r}
 ## All palettes the come with RColorBrewer:
 RColorBrewer::display.brewer.all()
 p_scales +
     scale_x_log10(labels=dollar_format()) +
-    FILL_IN_WITH_RCOLORBREWER(
+    scale_colour_distiller(  #another one is scale_colour_brewer (one is for continuous, other handles the other two types)
         trans   = "log10",
         breaks  = 10^(1:10),
         labels  = comma_format(),
-        palette = FILL_THIS_IN
+        palette = "Greens" #get the name from looking at RColorBrewer overview
     ) +
     scale_y_continuous(breaks=10*(1:10))
 ```

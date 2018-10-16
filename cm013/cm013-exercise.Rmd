@@ -225,10 +225,18 @@ Why do we make plots? EDA (exploratory data analysis); drawing conclusions from 
 - we've looked at tooling with plots -> intermediate
 - grammar and theme are the two aspects that we make decisions about when producing a plot -> intermediate
 - effectiveness; what information is contained in the data? -> starting point
-- see jenny's animated gif for simplfying data -> does it facilitate comparisons or help you see trends better?
+- see jenny's animated gif for simplfying data -> does it facilitate comparisons or reveal trends?
 - see Tamara Munsener's book for psychology of colour effects on perception
 - don't use pie charts! can be difficult to compare categories (hard to perceive angular distances vs linear, as in a bar plot)
 - when you look at your plot, ask yourself what trends can you see; what is hidden; how can you reveal it?
 - impossible to make a perfect plot (this is why we have figure captions)
+- publication quality:
+  - no colour
+  - resolution/aspect ratio/size
+  - font size
+  - sans serif
+  - labels, units
+  - consistency
+- inluding zero is important for bar charts (e.g.) bc we need to visually gauge the entire area of the bar for comparison
 
 

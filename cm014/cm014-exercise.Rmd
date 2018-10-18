@@ -106,7 +106,7 @@ summary(my_lm) %>%
 We can use the `predict()` function to make predictions from the model (default is to use fitting/training data). Here are the predictions:
 
 ```{r}
-predict(my_lm) %>% 
+predict(my_lm) %>% #takes the data frame, for each row, takes the x value and predicts a y value; outputs a vector of predictions for each row (only works for tidy data; cant have y values spread out over multiple columns)
   head()
 ```
 

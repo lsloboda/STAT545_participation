@@ -88,7 +88,12 @@ Exercise:
 2. On a new line, use the `unclass` function to uncover the object's true nature: a list. Note: it might be easier to use the `names` function to see what components are included in the list. 
 
 ```{r}
-(my_lm <- lm(FILL_THIS_IN, data=gapminder))
+library(gapminder)
+(my_lm <- lm(lifeExp ~ log(gdpPercap), data=gapminder))
+
+#unclass(my_lm) #shows the underlying list structure (the text output above isn't really the object) - but it's really long!
+names(my_lm) #pick out what you want to extract
+my_lm$coefficients
 ```
 
 To complicate things further, some info is stored in _another_ list after applying the `summary` function:

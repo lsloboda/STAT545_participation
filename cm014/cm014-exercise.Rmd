@@ -107,7 +107,12 @@ We can use the `predict()` function to make predictions from the model (default 
 
 ```{r}
 predict(my_lm) %>% #takes the data frame, for each row, takes the x value and predicts a y value; outputs a vector of predictions for each row (only works for tidy data; cant have y values spread out over multiple columns)
-  head()
+  head() #only apply to first 6 columns
+
+predict(my_lm, newdata = tibble(gdpPercap = c(500,600,700))) #newdata = what x values do you want to make predictions on; must be in the form of a data frame
+gapminder %>% head()
+
+#takeaway on lm: input is easy, output is messy; broom package helps with cleaning up the output
 ```
 
 We can plot models (with one predictor/ X variable) using `ggplot2` through the `geom_smooth()` layer. Specifying `method="lm"` gives us the linear regression fit (but only visually!):
@@ -134,5 +139,12 @@ Let's make it easier to extract info, using the `broom` package. There are three
 Exercise: apply all three functions to our fitted model, `my_lm`. What do you see?
 
 ```{r}
+#install.packages("broom")
+library(broom)
+tidy(my_lm)
+augment(my_lm)
+#augment(my_lm, newdata = tibble(gdpPercap = c(400,500,600)))
+gof <- glance(my_lm)
+gof$p.value #doesnt keep precision
 
 ```

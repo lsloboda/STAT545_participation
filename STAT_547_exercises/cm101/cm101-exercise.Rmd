@@ -18,7 +18,14 @@ This worksheet is a condensed version of Jenny's stat545.com functions [part1](h
 Let's demo the syntax of function-making.
 
 ```{r}
+square <- function(x) x^2
+square(10)
 
+square2 <- function(x) {
+  y <- x^2
+  y #R will execute the last line of the function and return it
+}
+square2(10)
 ```
 
 ## Motivating example: max minus min.

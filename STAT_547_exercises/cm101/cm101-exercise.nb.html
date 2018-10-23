@@ -557,7 +557,7 @@ qd2(rnorm(100), probs=c(0.25, 0.57))</code></pre>
 <p>There are other arguments to <code>quantile</code>, like <code>type</code>, that are not used all that much. Put them in as ellipses:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucWQyIDwtIGZ1bmN0aW9uKHgsIHByb2JzPWMoMCwxKSwgbmEucm09RkFMU0UsIC4uLikge1xuICAgIHN0b3BpZm5vdChpcy5udW1lcmljKHgpKVxuICAgIGlmIChsZW5ndGgoeCkgPT0gMCkge1xuICAgICAgICB3YXJuaW5nKFwiWW91IGlucHV0dGVkIGEgbGVuZ3RoLTAgeC4gRXhwZWN0aW5nIGxlbmd0aCA+PTEuIFJldHVybmluZyBOVUxMLlwiKVxuICAgICAgICByZXR1cm4oTlVMTClcbiAgICB9IFxuICAgIHF2ZWMgPC0gcXVhbnRpbGUoeCwgcHJvYnMsIG5hLnJtID0gbmEucm0sIC4uLilcbiAgICBtYXgocXZlYykgLSBtaW4ocXZlYylcbn1cbiNlbGxpcHNlcyAoLi4uKSBpcyBSJ3Mgd2F5IG9mIHdheWluZyB0aGF0IHlvdSBjYW4gcHV0IGFzIG1hbnkgYXJndW1lbnRzIGFzIHlvdSB3YW50XG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucWQyIDwtIGZ1bmN0aW9uKHgsIHByb2JzPWMoMCwxKSwgbmEucm09RkFMU0UsIC4uLikge1xuICAgIHN0b3BpZm5vdChpcy5udW1lcmljKHgpKVxuICAgIGlmIChsZW5ndGgoeCkgPT0gMCkge1xuICAgICAgICB3YXJuaW5nKFwiWW91IGlucHV0dGVkIGEgbGVuZ3RoLTAgeC4gRXhwZWN0aW5nIGxlbmd0aCA+PTEuIFJldHVybmluZyBOVUxMLlwiKVxuICAgICAgICByZXR1cm4oTlVMTClcbiAgICB9IFxuICAgIHF2ZWMgPC0gcXVhbnRpbGUoeCwgcHJvYnMsIG5hLnJtID0gbmEucm0sIC4uLilcbiAgICBtYXgocXZlYykgLSBtaW4ocXZlYylcbn1cbiNlbGxpcHNlcyAoLi4uKSBpcyBSJ3Mgd2F5IG9mIHdheWluZyB0aGF0IHlvdSBjYW4gcHV0IGFzIG1hbnkgYXJndW1lbnRzIGFzIHlvdSB3YW50XG4jdXNpbmcgaXQgdHdpY2UgbWVhbnMgdGhhdCB3aGF0ZXZlciBnb2VzIGludG8gdGhlIGZpcnN0IG9uZSB3aWxsIGdvIGludG8gdGhlIHNlY29uZCBvbmUgKG5vdGU6IHRoZXkgd2lsbCBoYXZlIHRvIGJlIG5hbWVkKVxuYGBgIn0= -->
 <pre class="r"><code>qd2 &lt;- function(x, probs=c(0,1), na.rm=FALSE, ...) {
     stopifnot(is.numeric(x))
     if (length(x) == 0) {
@@ -567,7 +567,8 @@ qd2(rnorm(100), probs=c(0.25, 0.57))</code></pre>
     qvec &lt;- quantile(x, probs, na.rm = na.rm, ...)
     max(qvec) - min(qvec)
 }
-#ellipses (...) is R's way of waying that you can put as many arguments as you want</code></pre>
+#ellipses (...) is R's way of waying that you can put as many arguments as you want
+#using it twice means that whatever goes into the first one will go into the second one (note: they will have to be named)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 </div>

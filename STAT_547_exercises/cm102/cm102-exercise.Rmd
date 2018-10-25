@@ -323,7 +323,8 @@ str_view_all_match(countries, pattern = "^Ca")
 Countries without a vowel? The word should start with a non-vowel, continue as a non-vowel, and end:
 
 ```{r}
-str_view_all_match(countries, "^[^aeiouAEIOU]*$")
+str_view_all_match(countries, "^[^aeiouAEIOU]*$") #no results since theres no country that doesnt contain entirely no vowels, when ^ is outside [], it means "start" of string
+# the asterisk means "zero or more" of the thing before it
 ```
 
 ### Groups
@@ -331,8 +332,8 @@ str_view_all_match(countries, "^[^aeiouAEIOU]*$")
 We can refer to parentheses groups:
 
 ```{r}
-str_view_all(c("abad", "abbd"), pattern="(a)(b)\\1")
-str_view_all(c("abad", "abbd"), pattern="(a)(b)\\2")
+str_view_all(c("abad", "abbd"), pattern="(a)(b)\\1") #a, b, then whatever was resolved in group 1
+str_view_all(c("abad", "abbd"), pattern="(a)(b)\\2") #similarly, whatever the second group was resolved to
 ```
 
 Note that the parentheses are first resolved, THEN referred to. NOT re-executed.
@@ -344,7 +345,7 @@ str_view_all(c("bananas"), "(.)(.)\\1\\2.*\\1\\2")
 We can refer to them later in the search, too:
 
 ```{r}
-str_view_all(c("bananas", "Who can? Bananas can."), "(.)(.)\\1\\2.*\\1\\2")
+str_view_all(c("bananas", "Who can? Bananas can."), "(.)(.)\\1\\2.*\\1\\2") #search for anything followed by anything, once its resolved, repeat the first group, repeat the second group, then any number of characters followed by repeats
 ```
 
 

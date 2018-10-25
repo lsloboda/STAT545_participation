@@ -153,14 +153,14 @@ Now, let's seed the folders with README's.
 1. Add `/README.md` to the end of the folder names stored in `folders`:
 
 ```{r}
-files <- FILL_THIS_IN
+(files <- str_c(folders, "/README.md"))
 ```
 
 2. Make a vector of contents to put in each README. Put a title and body. 
     - Hint: Use `\n` to indicate a new line! This works in graphs, too.
     
 ```{r}
-contents <- FILL_THIS_IN
+contents <- "# Participation"
 ```
 
 3. BONUS: Write the README's to file using base R's `write(x, file)`:

@@ -160,7 +160,8 @@ Now, let's seed the folders with README's.
     - Hint: Use `\n` to indicate a new line! This works in graphs, too.
     
 ```{r}
-contents <- "# Participation"
+(contents <- str_c("# Participation\n\n Participation for class meeting", 1:12))
+cat(contents[1]) #contents of first
 ```
 
 3. BONUS: Write the README's to file using base R's `write(x, file)`:
@@ -193,7 +194,7 @@ Find all countries in the gapminder data set with the following pattern: "i", fo
 str_subset(countries, pattern = "i.a")
 ```
 
-Here, `.` stands for "any single character".
+Here, `.` stands for "any single character". #A single wildcard!
 
 But, where's Italy? Case-sensitive!
 
@@ -207,8 +208,8 @@ str_view_all(countries, pattern = "i.a", match=TRUE)
 Exercise: Canada isn't the only country with three interspersed "a"'s. Find the others. Try both `str_view_all()` and `str_subset()`.
 
 ```{r}
-str_view_all(FILL_THIS_IN)
-str_subset(FILL_THIS_IN)
+str_view_all(countries, pattern = "a.a.a", match=TRUE)
+str_subset(countries, pattern = "a.a.a")
 ```
 
 
@@ -224,7 +225,7 @@ str_view_all_match(countries, pattern = "i.a")
 
 ### The escape
 
-What if I wanted to literally search for countries with a period in the name? Escape with `\`, although R requires a double escape.
+What if I wanted to literally search for countries with a period in the name? Escape with `\`, although R requires a double escape. #R parses \\ to \ which is parsed by regex
 
 ```{r}
 str_view_all_match(countries, pattern = "\\.")
@@ -249,7 +250,7 @@ Note that not all special characters "work" within `[]`, but some do, and do not
 Exercise: Find all countries with three non-vowels next to each other.
 
 ```{r}
-str_view_all_match(countries, pattern = "YOUR_REGEX_HERE")
+str_view_all_match(countries, pattern = "[^aeiou][^aeiou][^aeiou]") #carat indiciated "not" when inside []; but it means something else when outside []!
 ```
 
 
@@ -263,7 +264,7 @@ Beer or bear?
 
 ```{r}
 c("bear", "beer", "bar") %>% 
-    str_view_all_match(pattern = "be(e|a)r")
+    str_view_all_match(pattern = "be(e|a)r") #| is or
 ```
 
 
@@ -280,7 +281,7 @@ See list at https://r4ds.had.co.nz/strings.html#repetition
 Find all countries that have any number of o's (but at least 1) following r:
 
 ```{r}
-str_view_all_match(countries, "re+")
+str_view_all_match(countries, "ro+") #at least one o
 ```
 
 
@@ -294,7 +295,10 @@ str_view_all_match(countries, "e{2}")
 Exercise: Find all countries that have either "a" or "e", twice in a row (with a changeover allowed, such as "ae" or "ea"):
 
 ```{r}
-str_view_all_match(countries, pattern="YOUR_REGEX_HERE")
+#str_view_all_match(countries, pattern="e{2}|a{2}|ae|ea")
+str_view_all_match(countries, pattern="(a|e)(a|e)")
+str_view_all_match(countries, pattern="(a|e){2}")
+
 ```
 
 
@@ -306,8 +310,8 @@ str_view_all_match(countries, pattern="YOUR_REGEX_HERE")
 Countries that end in "land":
 
 ```{r}
-str_view_all_match(countries, pattern = "land$")
-str_view_all_match(countries, pattern = "$")
+str_view_all_match(countries, pattern = "land$") #$ means the end of the string
+str_view_all_match(countries, pattern = "$") #this finds the end of each line
 ```
 
 Countries that start with "Ca":

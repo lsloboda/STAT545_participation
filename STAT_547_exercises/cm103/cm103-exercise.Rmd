@@ -181,7 +181,7 @@ We can do the subsetting much easier with these shortcuts: just replace function
 - name you'd like to subset by.
 
 ```{r}
-map_chr(wesanderson, 1) # %>% unname()
+map_chr(wesanderson, 1) # %>% unname() (if you dont want the names to show up)
 ```
 
 
@@ -196,7 +196,11 @@ map_chr(wesanderson, 1) # %>% unname()
 Note: each character's list entry has a component named `titles` as the 9th entry.
 
 ```{r}
-YOUR_CODE_HERE
+map(got_chars, "titles")
+
+got_chars %>% 
+  map("titles")
+  #map(9) # does the same thing
 ```
 
 2. For the `got_chars` data:

@@ -70,7 +70,11 @@ Example:
 2. Use what you know about R to write code that extracts a vector of the first elements of each vector contained in `wesanderson`.
 
 ```{r}
-YOUR_CODE_HERE
+str(wesanderson)
+x <- character(0)
+for i( in 1:length(wesanderson)) x[i] <- wesanderson[[i]][1]
+x
+
 ```
 
 `str()` is not always useful! Try checking the structure of `got_chars` (= Game of Thrones characters):

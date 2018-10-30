@@ -211,6 +211,8 @@ got_chars %>%
 
 ```{r}
 desired_info <- c("name", "born")
+map(got_chars, `[`, desired_info %>% head())
+map_dfr(got_chars, `[`, desired_info)
 ```
 
 Note: as Jenny says, it's always safer (from a programming perspective) to work with output that's more predictable. The following would be safer, and is still readable:
@@ -221,7 +223,8 @@ got_chars %>% {
         name = map_chr(., "name"),
         born = map_chr(., "born")
     )
-}
+} #reason for using curly brackets -> pipe operator pipes output into the next function; this allows us to use the '.' to substitute the object to the left of the pipe
+#HIGHLY recommend to read help section on curly brackets vs round brackets
 ```
 
 Note the curly braces "tricks" the object prior to the pipe from entering as the first argument to `tibble`, because ` ``{`` ` only returns the last line evaluated. In this case there are two: the above code is equivalent to

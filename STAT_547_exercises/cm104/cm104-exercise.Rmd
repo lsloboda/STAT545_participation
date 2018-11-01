@@ -221,7 +221,7 @@ From list-column data:
 
 ```{r}
 icecream %>% 
-  filter(map_lgl(flav, ~ FILL_THIS_IN))
+  filter(map_lgl(flav, ~ any(.x == "strawberry"))) #.x is a vector of ice cream flavours and we want any one of the entries to be equal to strawberry
 ```
 
 

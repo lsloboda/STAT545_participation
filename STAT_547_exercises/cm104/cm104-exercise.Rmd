@@ -143,8 +143,12 @@ This is where `map()` comes in handy! Let's make a tibble using the `got_chars` 
 
 ```{r}
 #got_chars[[1]]
-got_alias <- got_chars %>% 
-  tibble(name = map_chr(., "name")) #subset
+got_alias <- got_chars %>% {
+  tibble(name = map_chr(., "name"), #subset
+         aliases = map(., "aliases")) 
+}
+
+got_alias
 ```
 
 Write the solution down carefully -- we'll be referring to `got_alias` later. 
@@ -160,9 +164,10 @@ Approach 1: Without piping
 3. Subset the newly-named list to Melisandre.
 
 ```{r}
-(alias_list <- FILL_THIS_IN)
-names(alias_list) <- FILL_THIS_IN
-SUBSET_HERE
+(alias_list <- got_alias$aliases)
+names(alias_list) <- got_alias$name
+#alias_list
+alias_list[["Melisandre"]]
 ```
 
 Approach 2: With piping
@@ -171,7 +176,9 @@ Approach 2: With piping
 2. Then, pipe that into a subsetting function to subset Melisandre.
 
 ```{r}
-got_alias %>% FILL_THIS_IN
+got_alias %>%
+  {setNames(.$aliases, .$name)} %>%   #the dot will refer to the entire aliases dataframe
+  `[[`("Melisandre") #function of the double brackets is the same as surrounding the thing in the brackets, same as x[["Melisandre"]]
 ```
 
 ## Nesting/Unnesting; Operating

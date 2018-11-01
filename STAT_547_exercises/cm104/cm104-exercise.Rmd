@@ -142,7 +142,9 @@ This is where `map()` comes in handy! Let's make a tibble using the `got_chars` 
 2. Specify the columns with `purrr` mappings.
 
 ```{r}
-got_alias <- got_chars %>% FILL_THIS_IN
+#got_chars[[1]]
+got_alias <- got_chars %>% 
+  tibble(name = map_chr(., "name")) #subset
 ```
 
 Write the solution down carefully -- we'll be referring to `got_alias` later. 

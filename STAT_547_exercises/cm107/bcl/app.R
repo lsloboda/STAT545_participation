@@ -18,18 +18,21 @@ bcl <- read.csv("bcl-data.csv", stringsAsFactors = FALSE)
 ui <- fluidPage(
   
   titlePanel("BC Liquor price app", 
-             windowTitle = "BCL app"),
+             windowTitle = "BCL app"
+  ),
   
   sidebarLayout(
     sidebarPanel("This text is in the sidebar."),
-    mainPanel("This text is in the main panel.")
-    
+    mainPanel(
+    #ggplot2::qplot(bcl$Price) -> this throws an error! needs to be in HTML format to use here; so instead we will run this on the server
+      plotOutput("price_hist")) #nothing will happen here until you define the plot on the server side
   )
+  
 )
 
 # Define server logic required to draw a histogram
-server <- function(input, output) {
-   
+server <- function(input, output) {  #cannot use ggplot directly, use render funtion
+   output$price_hist <- renderPlot(ggplot2::qplot(bcl$Price))  #the $ subsets the list; the assignment operator allows us to overwrite the data 
 
 }
 

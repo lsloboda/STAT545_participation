@@ -14,6 +14,8 @@ bcl <- read.csv("bcl-data.csv", stringsAsFactors = FALSE)
 
 #the skeleton required in all Shiny apps: ui, server, run the application (this will give a blank page)
 
+#remember the commas in the UI! everything is an argument; BUT not needed for server side, since you're defining a function
+
 # Define UI for application that draws a histogram
 ui <- fluidPage(
   
@@ -25,7 +27,10 @@ ui <- fluidPage(
     sidebarPanel("This text is in the sidebar."),
     mainPanel(
     #ggplot2::qplot(bcl$Price) -> this throws an error! needs to be in HTML format to use here; so instead we will run this on the server
-      plotOutput("price_hist")) #nothing will happen here until you define the plot on the server side
+      plotOutput("price_hist"), #nothing will happen here until you define the plot on the server side
+      tableOutput("bcl_data")
+      
+      ) 
   )
   
 )
@@ -33,13 +38,11 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output) {  #cannot use ggplot directly, use render funtion
    output$price_hist <- renderPlot(ggplot2::qplot(bcl$Price))  #the $ subsets the list; the assignment operator allows us to overwrite the data 
-
+   output$bcl_data <- renderTable(bcl)
 }
 
 # Run the application 
 shinyApp(ui = ui, server = server)
-
-
 
 
 

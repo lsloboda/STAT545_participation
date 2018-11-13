@@ -9,19 +9,22 @@
 
 library(shiny)
 
+bcl <- read.csv("bcl-data.csv", stringsAsFactors = FALSE)
+#str(bcl)
+
 #the skeleton required in all Shiny apps: ui, server, run the application (this will give a blank page)
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
-   "This is some text.",
-   "This is some more text.",
-    tags$h1("Level 1 Header"), #using the tags list is one way to access tags, but not the only way, as shown below
-    h1(em("Level 1 Header, Part 2")), #can nest tags, as shown here
-    HTML("<h1>Level 1 Header, Part 3</h1>"),
-    headerPanel("Yes!"),
-    a(href="https://google.ca", "Link to Google!"),
-    tags$b("This is bold."),
-    tags$caption("This is a caption")
+  
+  titlePanel("BC Liquor price app", 
+             windowTitle = "BCL app"),
+  
+  sidebarLayout(
+    sidebarPanel("This text is in the sidebar."),
+    mainPanel("This text is in the main panel.")
+    
+  )
 )
 
 # Define server logic required to draw a histogram
@@ -38,7 +41,15 @@ shinyApp(ui = ui, server = server)
 
 
 
-
+# "This is some text.",
+# "This is some more text.",
+# tags$h1("Level 1 Header"), #using the tags list is one way to access tags, but not the only way, as shown below
+# h1(em("Level 1 Header, Part 2")), #can nest tags, as shown here
+# HTML("<h1>Level 1 Header, Part 3</h1>"),
+# headerPanel("Yes!"),
+# a(href="https://google.ca", "Link to Google!"),
+# tags$b("This is bold."),
+# tags$caption("This is a caption")
 
 
 

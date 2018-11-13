@@ -38,7 +38,9 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output) {  #cannot use ggplot directly, use render funtion
    output$price_hist <- renderPlot(ggplot2::qplot(bcl$Price))  #the $ subsets the list; the assignment operator allows us to overwrite the data 
-   output$bcl_data <- renderTable(bcl)
+   output$bcl_data <- renderTable({
+     bcl #using curly braces allows us to wrangle the data as much as we want and only takes the last line
+     })
 }
 
 # Run the application 

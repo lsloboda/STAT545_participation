@@ -25,6 +25,9 @@ ui <- fluidPage(
   
   sidebarLayout(
     sidebarPanel("This text is in the sidebar."),
+    
+       sliderInput("priceInput", "Select your desired price range.",
+                min = 0, max = 100, value = c(15, 30), pre="$"),
     mainPanel(
     #ggplot2::qplot(bcl$Price) -> this throws an error! needs to be in HTML format to use here; so instead we will run this on the server
       plotOutput("price_hist"), #nothing will happen here until you define the plot on the server side
@@ -47,10 +50,6 @@ server <- function(input, output) {  #cannot use ggplot directly, use render fun
 shinyApp(ui = ui, server = server)
 
 
-
-
-# "This is some text.",
-# "This is some more text.",
 # tags$h1("Level 1 Header"), #using the tags list is one way to access tags, but not the only way, as shown below
 # h1(em("Level 1 Header, Part 2")), #can nest tags, as shown here
 # HTML("<h1>Level 1 Header, Part 3</h1>"),

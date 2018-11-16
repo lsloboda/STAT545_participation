@@ -8,12 +8,12 @@
 #
 
 library(shiny)
+library(tidyverse)
 
 bcl <- read.csv("bcl-data.csv", stringsAsFactors = FALSE)
 #str(bcl)
 
 #the skeleton required in all Shiny apps: ui, server, run the application (this will give a blank page)
-
 #remember the commas in the UI! everything is an argument; BUT not needed for server side, since you're defining a function
 
 # Define UI for application that draws a histogram
@@ -24,10 +24,13 @@ ui <- fluidPage(
   ),
   
   sidebarLayout(
-    sidebarPanel("This text is in the sidebar."),
-    
-       sliderInput("priceInput", "Select your desired price range.",
-                min = 0, max = 100, value = c(15, 30), pre="$"),
+    sidebarPanel(
+      sliderInput("priceInput", "Select your desired price range.",
+                  min = 0, max = 100, value = c(15, 30), pre="$"),
+      radioButtons("typeInput", "Select your alcoholic beverage type.", 
+                   choices = c("BEER", "REFRESHMENT", "SPIRITS", "WINE"),
+                   selected = "WINE")
+    ),
     mainPanel(
     #ggplot2::qplot(bcl$Price) -> this throws an error! needs to be in HTML format to use here; so instead we will run this on the server
       plotOutput("price_hist"), #nothing will happen here until you define the plot on the server side
@@ -40,9 +43,24 @@ ui <- fluidPage(
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {  #cannot use ggplot directly, use render funtion
-   output$price_hist <- renderPlot(ggplot2::qplot(bcl$Price))  #the $ subsets the list; the assignment operator allows us to overwrite the data 
-   output$bcl_data <- renderTable({
-     bcl #using curly braces allows us to wrangle the data as much as we want and only takes the last line
+  observe(print(input$priceInput))
+  bcl_filtered <- reactive({
+    bcl %>% 
+      filter(Price < input$priceInput[2],
+             Price > input$priceInput[1],
+             Type == input$typeInput)
+  }) 
+  
+  
+  #output$price_hist <- renderPlot(ggplot2::qplot(bcl$Price))  #the $ subsets the list; the assignment operator allows us to overwrite the data 
+  output$price_hist <- renderPlot({
+    bcl_filtered() %>% 
+      ggplot(aes(Price)) +
+      geom_histogram()
+  })
+
+  output$bcl_data <- renderTable({
+     bcl_filtered() #using curly braces allows us to wrangle the data as much as we want and only takes the last line
      })
 }
 

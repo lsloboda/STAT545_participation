@@ -51,13 +51,14 @@ We'll use `rvest` to read in parts of `cm111-simple_script.html` into R.
 1. Apply `read_html()` to the file: reads in the page, outputs a special R object.
 
 ```{r}
-simple_page <- FILL_THIS_IN
+simple_page <- read_html("cm111-simple_script.html")
+simple_page
 ```
 
 2. Pipe the output into `html_structure()`: will print the html to screen.
 
 ```{r}
-simple_page %>% html_structure()
+simple_page %>% html_structure() #shows an abbereviated version
 ```
 
 3. Apply `html_text()` to `simple_page`: gives me all the text (not the tags).

@@ -64,7 +64,7 @@ simple_page %>% html_structure() #shows an abbereviated version
 3. Apply `html_text()` to `simple_page`: gives me all the text (not the tags).
 
 ```{r}
-
+simple_page %>% html_text() %>% cat() #looks at entire HTML code as a single unit; cat will render it without breaks
 ```
 
 4. `html_nodes()`: selects only relevant parts of the html, constructing a (special) list of all relevant pieces. 
@@ -74,12 +74,15 @@ simple_page %>% html_structure() #shows an abbereviated version
 5. Then, pipe into `html_text()`.
 
 ```{r}
+simple_page %>% #paragraph tags
+	html_nodes("p") %>% 
+  html_text() #pulls the text that is between the p tags
 simple_page %>% 
-	html_nodes(FILL_THIS_IN)
+	html_nodes("a") %>% #hyperlink tags
+  html_text()
 simple_page %>% 
-	html_nodes(FILL_THIS_IN)
-simple_page %>% 
-	html_nodes(FILL_THIS_IN)
+	html_nodes("#wiki") %>% #can manually specify the tags
+  html_text()
 ```
 
 
@@ -95,16 +98,16 @@ Return the text in `simple_page` contained within:
 
 ```{r}
 simple_page %>% 
-	html_nodes(FILL_THIS_IN) %>% 
-	FILL_THIS_IN
+	html_nodes("p a") %>% 
+	html_text()
 ```
 
 2. any tag.
 
 ```{r}
 simple_page %>% 
-	html_nodes(FILL_THIS_IN) %>% 
-	FILL_THIS_IN
+	html_nodes("*") %>% 
+	html_text()
 ```
 
 

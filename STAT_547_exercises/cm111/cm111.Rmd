@@ -126,14 +126,16 @@ simple_page %>%
 
 ```{r}
 simple_page %>% 
-	html_nodes("a")
+	html_nodes("a") %>% 
+  html_attrs()
 ```
 
 - `html_attr()` (not plural) extracts a vector of the attribute contents by the `name` argument. Try `name="href"` with `html_nodes("a")`:
 
 ```{r}
 simple_page %>% 
-	html_nodes("a")
+	html_nodes("a") %>% 
+  html_attr(name="href")
 ```
 
 
@@ -156,7 +158,9 @@ Viewing the source to find the CSS is horrendous. In comes [`SelectorGadget`](ht
 2. Put the CSS selection in the `html_nodes()`.
 
 ```{r}
-
+read_html("https://www.musixmatch.com/search/kane%20brown") %>% 
+  html_nodes(".title span") %>% 
+  html_text()
 ```
 
 ## Reading a table
